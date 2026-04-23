@@ -14,44 +14,43 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS Engine -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Font Awesome 6 Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <!-- Tailwind CSS Configuration (Didefinisikan sebelum script agar tidak error) -->
     <script>
-        /**
-         * Tailwind Configuration
-         * Menjaga animasi blob tetap smooth dan desain konsisten.
-         */
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Outfit"', 'sans-serif'],
-                    },
-                    animation: { 
-                        blob: "blob 7s infinite",
-                        fadeIn: "fadeIn 0.6s ease-out forwards"
-                    },
-                    keyframes: {
-                        blob: {
-                            "0%": { transform: "translate(0px, 0px) scale(1)" },
-                            "33%": { transform: "translate(30px, -50px) scale(1.1)" },
-                            "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
-                            "100%": { transform: "translate(0px, 0px) scale(1)" }
+        window.tailwind = {
+            config: {
+                darkMode: 'class',
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ['"Outfit"', 'sans-serif'],
                         },
-                        fadeIn: {
-                            "0%": { opacity: 0, transform: "translateY(10px)" },
-                            "100%": { opacity: 1, transform: "translateY(0)" }
+                        animation: { 
+                            blob: "blob 7s infinite",
+                            fadeIn: "fadeIn 0.6s ease-out forwards"
+                        },
+                        keyframes: {
+                            blob: {
+                                "0%": { transform: "translate(0px, 0px) scale(1)" },
+                                "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+                                "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+                                "100%": { transform: "translate(0px, 0px) scale(1)" }
+                            },
+                            fadeIn: {
+                                "0%": { opacity: 0, transform: "translateY(10px)" },
+                                "100%": { opacity: 1, transform: "translateY(0)" }
+                            }
                         }
                     }
                 }
             }
         }
     </script>
+    
+    <!-- Tailwind CSS Engine -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* --- LUXURY DESIGN SYSTEM (v3.9 RESTORATION) --- */
@@ -255,12 +254,12 @@
             <!-- 3. VIP Lead Generation Section -->
             <div id="vip-list-section" class="mt-6 mb-12 px-6 w-full snap-item hidden">
                 <div class="glass rounded-[2rem] p-10 text-center border border-white/60 shadow-2xl relative overflow-hidden">
-                    <div class="absolute -top-10 -right-10 w-24 h-24 bg-purple-500/5 rounded-full"></div>
+                    <div class="absolute -top-10 -right-10 w-24 h-24 bg-purple-50/5 rounded-full"></div>
                     <div class="w-14 h-14 mx-auto rounded-full glass-input flex items-center justify-center text-purple-600 mb-5 shadow-inner">
                         <i class="fas fa-envelope-open-text text-lg"></i>
                     </div>
                     <h3 class="text-2xl font-[900] mb-2 text-gradient-rainbow uppercase">Join VIP List ✨</h3>
-                    <p class="text-xs opacity-60 mb-8 font-bold leading-relaxed px-2">Dapatkan info rilis produk terbaru dan penawaran eksklusif langsung ke kontakmu.</p>
+                    <p class="text-xs opacity-70 mb-8 font-bold leading-relaxed px-2">Dapatkan info rilis produk terbaru dan penawaran eksklusif langsung ke kontakmu.</p>
                     
                     <form id="lead-form" onsubmit="submitLeadForm(event)" class="space-y-4 text-left">
                         <input type="text" id="lead-name" placeholder="NAMA LENGKAP" required class="w-full glass-input rounded-2xl px-6 py-4 text-sm outline-none font-black uppercase tracking-widest">
