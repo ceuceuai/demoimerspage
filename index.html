@@ -50,21 +50,27 @@
         }
         .dark body { background-color: #111827; color: #f9fafb; }
 
-        /* BIAR TETEP MOBILE LOOK DI DESKTOP */
+        /* FIX: LEBAR LEBIH PROPORSIONAL (GAK KURUS BANGET) */
         .main-wrapper {
             width: 100%;
-            max-width: 480px;
+            max-width: 500px; /* Di-adjust biar gak kekecilan di desktop */
             margin: 0 auto;
             min-height: 100vh;
             position: relative;
         }
 
-        /* SWIPE MODE ENGINE */
+        /* SWIPE MODE ENGINE DENGAN HIDE SCROLLBAR */
         .mode-swipe {
             scroll-snap-type: y mandatory;
             height: 100vh;
             overflow-y: scroll;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE 10+ */
         }
+        .mode-swipe::-webkit-scrollbar {
+            display: none; /* Webkit/Chrome */
+        }
+        
         .snap-item {
             scroll-snap-align: start;
             min-height: auto;
@@ -137,7 +143,7 @@
         .poster-wrapper img { width: 100%; display: block; margin: 0; padding: 0; border: none; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center p-4 relative overflow-x-hidden selection:bg-purple-500/30">
+<body class="min-h-screen flex flex-col items-center relative overflow-x-hidden selection:bg-purple-500/30">
 
     <!-- Blobs Background -->
     <div class="fixed inset-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
@@ -148,7 +154,7 @@
 
     <!-- Theme Toggle -->
     <div class="absolute top-6 right-6 z-50">
-        <button onclick="toggleTheme()" class="w-12 h-12 rounded-full glass flex items-center justify-center text-lg focus:outline-none tap-effect">
+        <button onclick="toggleTheme()" class="w-12 h-12 rounded-full glass flex items-center justify-center text-lg focus:outline-none tap-effect shadow-md">
             <i class="fas fa-sun hidden dark:block text-yellow-300"></i>
             <i class="fas fa-moon block dark:hidden text-indigo-700"></i>
         </button>
@@ -162,11 +168,11 @@
     </div>
 
     <!-- Main Content Wrapper -->
-    <main id="main-content" class="main-wrapper relative z-10 hidden pt-12 pb-8 opacity-0 transition-opacity duration-700">
+    <main id="main-content" class="main-wrapper relative z-10 hidden opacity-0 transition-opacity duration-700">
         
         <div id="scroll-snap-wrapper" class="w-full h-full">
             <!-- Profile Section -->
-            <div id="profile-container" class="flex flex-col items-center mb-8 text-center px-4 w-full snap-item">
+            <div id="profile-container" class="flex flex-col items-center pt-16 pb-8 text-center px-6 w-full snap-item">
                 <div class="glass rounded-[2rem] p-2 mb-4 relative shadow-lg">
                     <img id="profile-image" src="" class="w-28 h-28 md:w-32 md:h-32 rounded-[1.5rem] object-cover object-top">
                     <div id="verified-badge" class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full glass flex items-center justify-center hidden text-blue-600 dark:text-blue-400 border border-white/50">
@@ -179,7 +185,7 @@
             </div>
 
             <!-- App & Links Section -->
-            <div class="space-y-6 px-4 w-full">
+            <div class="space-y-6 px-6 pb-8 w-full">
                 <!-- Category Tabs -->
                 <div class="w-full fade-mask">
                     <div id="category-container" class="flex gap-3 w-full overflow-x-auto pb-4 pt-2"></div>
@@ -201,16 +207,16 @@
             </div>
 
             <!-- VIP Form -->
-            <div id="vip-list-section" class="mt-8 mb-6 px-4 w-full snap-item">
-                <div class="glass rounded-[1.5rem] p-6 text-center border border-white/50">
+            <div id="vip-list-section" class="mt-4 mb-8 px-6 w-full snap-item">
+                <div class="glass rounded-[1.5rem] p-8 text-center border border-white/50 shadow-lg">
                     <div class="w-12 h-12 mx-auto rounded-full glass-input flex items-center justify-center text-purple-600 mb-3 shadow-inner"><i class="fas fa-envelope-open-text"></i></div>
                     <h3 class="text-xl font-[800] mb-1 text-gradient-rainbow">Join VIP List ✨</h3>
-                    <p class="text-xs opacity-70 mb-5 px-4 font-medium">Dapatkan info eksklusif, promo, dan update terbaru langsung ke kontakmu.</p>
+                    <p class="text-xs opacity-70 mb-6 px-4 font-medium">Dapatkan info eksklusif, promo, dan update terbaru langsung ke kontakmu.</p>
                     <form id="lead-form" onsubmit="submitLeadForm(event)" class="space-y-3 text-left">
                         <input type="text" id="lead-name" placeholder="Nama Lengkap" required class="w-full glass-input rounded-xl px-4 py-3 text-sm outline-none font-medium">
                         <input type="email" id="lead-email" placeholder="Alamat Email" required class="w-full glass-input rounded-xl px-4 py-3 text-sm outline-none font-medium">
                         <input type="tel" id="lead-wa" placeholder="No. WhatsApp" required oninput="if(this.value.startsWith('0')) this.value='62'+this.value.substring(1)" class="w-full glass-input rounded-xl px-4 py-3 text-sm outline-none font-medium">
-                        <button type="submit" id="lead-submit-btn" class="w-full bg-purple-600 text-white font-bold py-3 rounded-xl mt-4 tap-effect shadow-lg shadow-purple-500/20 uppercase text-xs tracking-wider">Berlangganan Sekarang</button>
+                        <button type="submit" id="lead-submit-btn" class="w-full bg-purple-600 text-white font-bold py-3.5 rounded-xl mt-4 tap-effect shadow-lg shadow-purple-500/20 uppercase text-xs tracking-wider">Berlangganan Sekarang</button>
                     </form>
                     <p id="lead-msg" class="text-xs font-bold mt-3 hidden text-green-500"></p>
                 </div>
@@ -223,8 +229,8 @@
                     <span class="text-gradient-rainbow uppercase tracking-widest">Bagikan Profil</span>
                 </button>
             </div>
-            <footer class="text-center mt-6 opacity-60 pb-10 snap-item">
-                <p class="text-[10px] font-medium tracking-wide">© <span id="year"></span> <span id="footer-name"></span>. <span id="footer-text"></span></p>
+            <footer class="text-center mt-6 opacity-60 pb-12 snap-item">
+                <p class="text-[10px] font-medium tracking-wide uppercase tracking-[0.2em]">© <span id="year"></span> <span id="footer-name"></span></p>
             </footer>
         </div>
 
@@ -256,7 +262,7 @@
                 const res = await fetch(`${SCRIPT_URL}?action=getData`);
                 globalData = await res.json();
                 
-                // --- NEW: LOGIC NAV_MODE ---
+                // --- LOGIC NAV_MODE DENGAN HIDE SCROLLBAR ---
                 const wrapper = document.getElementById('scroll-snap-wrapper');
                 if (globalData.config.nav_mode === 'swipe') {
                     wrapper.classList.add('mode-swipe');
@@ -281,7 +287,7 @@
         function renderPage() {
             const config = globalData.config;
             
-            // --- NEW: DYNAMIC BROWSER TITLE ---
+            // --- DYNAMIC BROWSER TITLE ---
             if(config.profile_name) {
                 document.title = config.profile_name + " | " + (config.profile_title || "My Smart Bio Page");
             }
@@ -293,7 +299,6 @@
             
             document.getElementById('year').innerText = new Date().getFullYear();
             document.getElementById('footer-name').innerText = config.profile_name;
-            document.getElementById('footer-text').innerText = config.footer_text || 'Designed with Glassmorphism.';
             
             renderSocials();
             renderCategories();
@@ -340,7 +345,6 @@
             
             const container = document.getElementById('apps-container');
             container.innerHTML = paginated.map(app => {
-                // LOGIC WARNA WARNI TITLES
                 const isDefaultColor = !app.HeroColor1 || app.HeroColor1 === '#9333ea';
                 const titleStyle = isDefaultColor 
                     ? '' 
@@ -349,7 +353,7 @@
 
                 if (app.Type === 'hero') {
                     return `
-                        <div class="w-full text-center py-6 px-4 snap-item">
+                        <div class="w-full text-center py-6 snap-item">
                             ${app.LogoUrl ? `<img src="${app.LogoUrl}" class="h-10 mx-auto mb-4">` : ''}
                             <h2 class="text-3xl font-[800] mb-2 leading-tight ${titleClass}" style="${titleStyle}">${app.Name}</h2>
                             <p class="text-sm opacity-80 leading-relaxed font-medium">${app.Description}</p>
@@ -387,11 +391,10 @@
                             <div class="badge-container" style="background: linear-gradient(135deg, #a855f7, #ec4899); border-top-right-radius: 2.2rem;">${app.BadgeText || 'OFFER'}</div>
                             <h3 class="text-xl font-[800] mb-4 text-gradient-rainbow">${app.Name}</h3>
                             <div class="text-[11px] space-y-3 mb-8 opacity-80 font-medium">${app.Description}</div>
-                            <button onclick="handleLink('${app.ID}', '${app.Url}', ${app.isLocked})" class="w-full bg-purple-600 text-white font-bold py-3.5 rounded-2xl shadow-lg text-xs uppercase tracking-wider">${app.PasswordSourceUrl || 'Dapatkan Sekarang'}</button>
+                            <button onclick="handleLink('${app.ID}', '${app.Url}', ${app.isLocked})" class="w-full bg-purple-600 text-white font-bold py-3.5 rounded-2xl shadow-lg text-xs uppercase tracking-wider uppercase">${app.PasswordSourceUrl || 'Dapatkan Sekarang'}</button>
                         </div>
                     `;
                 } else if (app.Type === 'text') {
-                    // --- NEW: FULL HTML SUPPORT ---
                     return `<div class="w-full my-4 snap-item">${app.Description}</div>`;
                 }
             }).join('');
