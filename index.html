@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iMersPage - Your Smart Bio Page, Simplified</title>
+    <title id="dynamic-title">iMersPage - Loading...</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://ui-avatars.com/api/?name=iMersPage&background=7c3aed&color=fff&size=32">
@@ -280,6 +280,12 @@
 
         function renderPage() {
             const config = globalData.config;
+            
+            // --- NEW: DYNAMIC BROWSER TITLE ---
+            if(config.profile_name) {
+                document.title = config.profile_name + " | " + (config.profile_title || "My Smart Bio Page");
+            }
+
             document.getElementById('profile-name').innerText = config.profile_name;
             document.getElementById('profile-title').innerText = config.profile_title;
             document.getElementById('profile-image').src = config.profile_image;
