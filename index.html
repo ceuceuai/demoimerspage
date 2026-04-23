@@ -6,8 +6,8 @@
     <!-- Judul dinamis diatur oleh script -->
     <title id="dynamic-title">iMersPage - Loading...</title>
     
-    <!-- Favicon Branding -->
-    <link rel="icon" type="image/png" href="https://ui-avatars.com/api/?name=iMersPage&background=7c3aed&color=fff&size=32">
+    <!-- Favicon Branding (Diberi ID agar bisa diganti dinamis) -->
+    <link id="dynamic-favicon" rel="icon" type="image/png" href="https://ui-avatars.com/api/?name=iMersPage&background=7c3aed&color=fff&size=32">
     
     <!-- Google Fonts Framework: Outfit (DILARANG GANTI) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -224,8 +224,8 @@
                 <h1 id="profile-name" class="text-3xl md:text-4xl font-[900] tracking-tight text-gradient-rainbow pb-1 uppercase drop-shadow-sm">...</h1>
                 <p id="profile-title" class="opacity-60 font-black mt-2 text-[10px] md:text-xs uppercase tracking-[0.4em] leading-relaxed">...</p>
                 
-                <!-- Social Media List -->
-                <div id="socials-container" class="flex flex-wrap justify-center gap-5 mt-10"></div>
+                <!-- Social Media List (FIXED SQUARE DESIGN) -->
+                <div id="socials-container" class="flex flex-wrap justify-center gap-4 mt-10"></div>
             </div>
 
             <!-- 2. Dynamic Content Area -->
@@ -239,7 +239,8 @@
                     <div class="w-full">
                         <div class="glass-input rounded-2xl flex items-center px-6 py-4 shadow-xl border border-white/40">
                             <i class="fas fa-search opacity-30 mr-3 text-sm"></i>
-                            <input type="text" id="app-search" class="w-full bg-transparent outline-none text-sm font-black placeholder-gray-400 uppercase tracking-widest" placeholder="Cari link atau produk...">
+                            <!-- SEARCH BAR (FIXED PLACEHOLDER SIZE & CASE) -->
+                            <input type="text" id="app-search" class="w-full bg-transparent outline-none text-xs font-bold placeholder-gray-500 lowercase" placeholder="cari link atau produk...">
                         </div>
                     </div>
                 </div>
@@ -254,18 +255,29 @@
             <!-- 3. VIP Lead Generation Section -->
             <div id="vip-list-section" class="mt-6 mb-12 px-6 w-full snap-item hidden">
                 <div class="glass rounded-[2rem] p-10 text-center border border-white/60 shadow-2xl relative overflow-hidden">
-                    <div class="absolute -top-10 -right-10 w-24 h-24 bg-purple-50/5 rounded-full"></div>
+                    <div class="absolute -top-10 -right-10 w-24 h-24 bg-purple-500/5 rounded-full"></div>
                     <div class="w-14 h-14 mx-auto rounded-full glass-input flex items-center justify-center text-purple-600 mb-5 shadow-inner">
                         <i class="fas fa-envelope-open-text text-lg"></i>
                     </div>
                     <h3 class="text-2xl font-[900] mb-2 text-gradient-rainbow uppercase">Join VIP List ✨</h3>
-                    <p class="text-xs opacity-70 mb-8 font-bold leading-relaxed px-2">Dapatkan info rilis produk terbaru dan penawaran eksklusif langsung ke kontakmu.</p>
+                    <p class="text-xs opacity-60 mb-8 font-bold leading-relaxed px-2">Dapatkan info rilis produk terbaru dan penawaran eksklusif langsung ke kontakmu.</p>
                     
                     <form id="lead-form" onsubmit="submitLeadForm(event)" class="space-y-4 text-left">
-                        <input type="text" id="lead-name" placeholder="NAMA LENGKAP" required class="w-full glass-input rounded-2xl px-6 py-4 text-sm outline-none font-black uppercase tracking-widest">
-                        <input type="email" id="lead-email" placeholder="EMAIL AKTIF" required class="w-full glass-input rounded-2xl px-6 py-4 text-sm outline-none font-black uppercase tracking-widest">
-                        <input type="tel" id="lead-wa" placeholder="WHATSAPP (62...)" required oninput="if(this.value.startsWith('0')) this.value='62'+this.value.substring(1)" class="w-full glass-input rounded-2xl px-6 py-4 text-sm outline-none font-black tracking-widest">
-                        <button type="submit" id="lead-submit-btn" class="w-full bg-purple-600 text-white font-black py-4.5 rounded-2xl mt-4 tap-effect shadow-xl shadow-purple-500/30 uppercase text-xs tracking-widest transition-all">Berlangganan Sekarang</button>
+                        <div class="group">
+                            <input type="text" id="lead-name" placeholder="nama lengkap" required class="w-full glass-input rounded-2xl px-6 py-4 text-xs outline-none font-bold placeholder:text-[10px] placeholder:font-bold placeholder:lowercase">
+                        </div>
+                        <div class="group">
+                            <input type="email" id="lead-email" placeholder="alamat email" required class="w-full glass-input rounded-2xl px-6 py-4 text-xs outline-none font-bold placeholder:text-[10px] placeholder:font-bold placeholder:lowercase">
+                        </div>
+                        <div class="group">
+                            <input type="tel" id="lead-wa" placeholder="nomor whatsapp (62...)" required oninput="if(this.value.startsWith('0')) this.value='62'+this.value.substring(1)" class="w-full glass-input rounded-2xl px-6 py-4 text-xs outline-none font-bold placeholder:text-[10px] placeholder:font-bold placeholder:lowercase">
+                        </div>
+                        
+                        <!-- VIP BUTTON (MATCH SHARE BUTTON STYLE) -->
+                        <button type="submit" id="lead-submit-btn" class="glass glass-btn w-full mt-4 px-10 py-4 rounded-full flex items-center justify-center gap-4 font-black text-[10px] shadow-xl border border-white/50 group transition-all tap-effect">
+                            <i class="fas fa-paper-plane text-gradient-rainbow"></i> 
+                            <span class="text-gradient-rainbow uppercase tracking-[0.3em]">Berlangganan Sekarang</span>
+                        </button>
                     </form>
                     <p id="lead-msg" class="text-[10px] font-black mt-5 hidden text-green-600 text-center uppercase tracking-widest"></p>
                 </div>
@@ -377,6 +389,11 @@
                 document.getElementById('dynamic-title').innerText = document.title;
             }
 
+            // --- DYNAMIC FAVICON (Taking from Profile Image) ---
+            if(config.profile_image) {
+                document.getElementById('dynamic-favicon').href = config.profile_image;
+            }
+
             // Core Branding Elements
             document.getElementById('profile-name').innerText = config.profile_name || 'iMersPage';
             document.getElementById('profile-title').innerText = config.profile_title || 'Smart Bio Link';
@@ -408,8 +425,9 @@
 
         function renderSocials() {
             const container = document.getElementById('socials-container');
+            // FIXED SQUARE DESIGN FOR SOCIAL MEDIA
             container.innerHTML = globalData.socials.filter(s => s.Visible).map(s => `
-                <a href="${s.Url}" target="_blank" class="w-13 h-13 glass rounded-[1.2rem] flex items-center justify-center tap-effect border border-white/30 shadow-xl transition-all active:scale-90">
+                <a href="${s.Url}" target="_blank" class="w-12 h-12 glass rounded-[1rem] flex items-center justify-center tap-effect border border-white/30 shadow-lg transition-all active:scale-90 aspect-square">
                     <i class="${s.IconClass} ${s.ColorClass} text-xl"></i>
                 </a>
             `).join('');
@@ -595,7 +613,7 @@
                     document.getElementById('lead-form').reset(); 
                 } 
             } catch(e) { console.error(e); } 
-            finally { btn.disabled = false; btn.innerText = "Berlangganan Sekarang"; } 
+            finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane text-gradient-rainbow"></i> <span class="text-gradient-rainbow uppercase tracking-[0.3em]">Berlangganan Sekarang</span>'; } 
         }
 
         function shareProfile() { 
